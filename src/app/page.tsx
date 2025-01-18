@@ -4,28 +4,11 @@ import FiturIMG from "@/assets/fitur.png";
 import TextureBG from "@/assets/texture-bg.png";
 import HeroRightIMG from "@/assets/hero-right.png";
 import HeroLeftIMG from "@/assets/hero-left.png";
-import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { fitur } from "@/data/fitur";
+import Card from "@/components/Card";
+import { getCardColor } from "@/utils/utils";
 
-const getCardColor = (index: number) => {
-  switch (index) {
-    case 0:
-      return "bg-list1";
-      break;
-    case 1:
-      return "bg-list2";
-      break;
-    case 2:
-      return "bg-list3";
-      break;
-    case 3:
-      return "bg-list4";
-      break;
-    default:
-      break;
-  }
-};
 export default function Home() {
   return (
     <>
@@ -35,7 +18,9 @@ export default function Home() {
       >
         <main className="flex  justify-center relative items-center flex-col gap-3 min-h-screen container">
           <h1 className="text-4xl lg:text-6xl font-bold">LinguaPlay.</h1>
-          <h2 className="text-4xl text-center lg:text-6xl font-bold">Learn English, Playfully</h2>
+          <h2 className="text-4xl text-center lg:text-6xl font-bold">
+            Learn English, Playfully
+          </h2>
           <p className="max-w-2xl  md:text-xl text-center">
             Haiii Selamat datang!! Tingkatkan kemampuan mendengar, berbicara,
             dan membaca dengan fitur interaktif
@@ -71,28 +56,14 @@ export default function Home() {
         </p>
         <main className="grid lg:grid-cols-4 grid-cols-1 gap-4 py-8">
           {fitur.map((item, index) => (
-            <div
-              key={index}
-              className={`${getCardColor(
-                index
-              )} p-6 rounded-2xl flex flex-col justify-between gap-2`}
-            >
-              <div className="flex items-center gap-2 justify-between">
-                <h1 className="text-2xl font-bold">{item.title}</h1>
-                <div className="bg-white2 min-w-10 aspect-square flex items-center justify-center p-2 rounded-full">
-                  <Icon icon={"maki:arrow"} />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <p className="text">{item.description}</p>
-                <Image
-                  src={item.image}
-                  alt="fitur"
-                  className="w-full aspect-square"
-                  draggable={false}
-                />
-              </div>
-            </div>
+            
+            <Card to={`${item.url}`}
+            key={index}
+              color={getCardColor(index)}
+              description={item.description}
+              image={item.image}
+              title={item.title}
+            />
           ))}
         </main>
       </section>
