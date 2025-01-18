@@ -8,25 +8,25 @@ export const fitur =[
       "title": "Audio Narasi Storybook",
       "description": "Menyuarakan narasi tiap lembar storybook",
       "image": Fitur1,
-      "url": "/audio-narasi-storybook"
+      "url": "/storybook"
     },
     {
       "title": "Mini Dictionary with Audio",
       "description": "Memperkaya pembendaharaan kata dalam storybook",
       "image": Fitur2,
-      "url": "/mini-dictionary-with-audio"
+      "url": "dictionary"
     },
     {
       "title": "Conversation with Audio",
       "description": "Berbicara dengan dialog interaktif",
       "image": Fitur3,
-      "url": "/conversation-with-audio"
+      "url": "/conversation"
     },
     {
       "title": "Interactive Game",
       "description": "Berbagai permainan interaktif yang menyenangkan",
       "image": Fitur4,
-      "url": "/interactive-game"
+      "url": "/game"
     }
   ]
   
