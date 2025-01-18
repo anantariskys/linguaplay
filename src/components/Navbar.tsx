@@ -11,12 +11,14 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 z-50 bg-white2 shadow-sm left-0 right-0">
       <main className="container py-4 flex justify-between items-center">
+        <Link href={'/'}>
         <Image
           src={Logo}
           alt="logo"
           className="lg:w-56 w-40"
           draggable={false}
-        />
+          />
+          </Link>
         <button
           aria-label="Toggle menu"
           className={`${menuOpen?"hidden":"block"} lg:hidden text-gray-700 focus:outline-none`}
@@ -28,11 +30,11 @@ const Navbar = () => {
           />
         </button>
         <ul
-          className={`fixed inset-0 bg-white2 flex flex-col items-center justify-center gap-6 transform transition-transform duration-500 ease-in-out ${
+          className={`fixed inset-0 bg-white2 flex flex-col items-center justify-center lg:gap-4 gap-6 transform transition-transform duration-500 ease-in-out ${
             menuOpen
               ? "translate-x-0 scale-100 opacity-100"
               : "-translate-x-full scale-95 opacity-0"
-          } lg:static lg:translate-x-0 lg:scale-100 lg:opacity-100 lg:flex-row lg:gap-4 lg:h-auto lg:bg-transparent lg:inset-auto`}
+          } lg:static lg:translate-x-0 lg:scale-100 lg:opacity-100 lg:flex-row  lg:h-auto lg:bg-transparent lg:inset-auto`}
         >
           <button
             aria-label="Toggle menu"
@@ -45,23 +47,23 @@ const Navbar = () => {
             />
           </button>{" "}
           <li>
-            <Link href={"/"}>
-              <p className="text-lg px-4 py-2">Audio Narasi</p>
+            <Link href={"/storybook"}>
+              <p className="">Audio Narasi</p>
             </Link>
           </li>
           <li>
-            <Link href={"/"}>
-              <p className="text-lg px-4 py-2">Mini Dictionary</p>
+            <Link href={"/dictionary"}>
+              <p className="">Mini Dictionary</p>
             </Link>
           </li>
           <li>
-            <Link href={"/"}>
-              <p className="text-lg px-4 py-2">Conversation</p>
+            <Link href={"/conversation"}>
+              <p className="">Conversation</p>
             </Link>
           </li>
           <li>
-            <Link href={"/"}>
-              <p className="text-lg px-4 py-2">Game</p>
+            <Link href={"/game"}>
+              <p className="">Game</p>
             </Link>
           </li>
         </ul>
