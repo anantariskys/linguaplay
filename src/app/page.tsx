@@ -1,101 +1,120 @@
+import Decoration from "@/assets/landing-decoration.png";
+import WelcomeIMG from "@/assets/welcome-image.png";
+import FiturIMG from "@/assets/fitur.png";
+import TextureBG from "@/assets/texture-bg.png";
+import HeroRightIMG from "@/assets/hero-right.png";
+import HeroLeftIMG from "@/assets/hero-left.png";
+import { Icon } from "@iconify/react";
 import Image from "next/image";
+import { fitur } from "@/data/fitur";
 
+const getCardColor = (index: number) => {
+  switch (index) {
+    case 0:
+      return "bg-list1";
+      break;
+    case 1:
+      return "bg-list2";
+      break;
+    case 2:
+      return "bg-list3";
+      break;
+    case 3:
+      return "bg-list4";
+      break;
+    default:
+      break;
+  }
+};
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <>
+      <section
+        style={{ backgroundImage: `url(${TextureBG.src})` }}
+        className="flex bg-white justify-center items-center flex-col "
+      >
+        <main className="flex  justify-center relative items-center flex-col gap-3 min-h-screen container">
+          <h1 className="text-4xl lg:text-6xl font-bold">LinguaPlay.</h1>
+          <h2 className="text-4xl text-center lg:text-6xl font-bold">Learn English, Playfully</h2>
+          <p className="max-w-2xl  md:text-xl text-center">
+            Haiii Selamat datang!! Tingkatkan kemampuan mendengar, berbicara,
+            dan membaca dengan fitur interaktif
+          </p>
+          <button className="px-8  text-white border-b-4 border-primary2 py-2 rounded-2xl bg-primary1">
+            Mulai belajar
+          </button>
+          <Image
+            src={HeroRightIMG}
+            alt="hero"
+            className="absolute lg:bottom-8 bottom-4 right-6 lg:w-auto w-20 lg:right-12"
+            draggable={false}
+          />
+          <Image
+            src={HeroLeftIMG}
+            alt="hero"
+            className="absolute bottom-4 lg:bottom-8 lg:w-auto w-20 left-6 lg:left-12"
+            draggable={false}
+          />
+        </main>
+      </section>
+      <section className="container py-8">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+          src={FiturIMG}
+          alt="fitur"
+          className="mx-auto"
+          draggable={false}
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <p className="text-center max-w-4xl text-lg mx-auto">
+          Ingin belajar apa hari ini? pilih sesuai keinginan mu.. Temukan cerita
+          seru dan kata-kata baru untuk melatih kemampuan bahasa Inggris dengan
+          cara yang menyenangkan.
+        </p>
+        <main className="grid lg:grid-cols-4 grid-cols-1 gap-4 py-8">
+          {fitur.map((item, index) => (
+            <div
+              key={index}
+              className={`${getCardColor(
+                index
+              )} p-6 rounded-2xl flex flex-col justify-between gap-2`}
+            >
+              <div className="flex items-center gap-2 justify-between">
+                <h1 className="text-2xl font-bold">{item.title}</h1>
+                <div className="bg-white2 min-w-10 aspect-square flex items-center justify-center p-2 rounded-full">
+                  <Icon icon={"maki:arrow"} />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <p className="text">{item.description}</p>
+                <Image
+                  src={item.image}
+                  alt="fitur"
+                  className="w-full aspect-square"
+                  draggable={false}
+                />
+              </div>
+            </div>
+          ))}
+        </main>
+      </section>
+      <section className="bg-primary1 relative">
+        <h2 className="bg-white2 text-3xl lg:text-5xl font-bold text-center pb-4">
+          Selamat Belajar!!!
+        </h2>
+        <Image
+          src={Decoration}
+          alt="decoration"
+          className="w-full "
+          draggable={false}
+        />
+        <main className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src={WelcomeIMG}
+            alt="welcome"
+            className="lg:w-auto w-24"
+            draggable={false}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </main>
+      </section>
+    </>
   );
 }
