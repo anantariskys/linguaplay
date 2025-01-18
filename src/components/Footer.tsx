@@ -14,11 +14,10 @@ const Footer = () => {
           </div>
           <div className="flex flex-col text-lg gap-1">
             <h2 className="font-semibold text-xl">LinguaPlay</h2>
-            <Link href={"/"}>Audio Narasi</Link>
-            <Link href={"/"}>Mini Dictionary</Link>
-            <Link href={"/"}>Conversation</Link>
-            <Link href={"/"}>Game </Link>
-            ini footer
+            <Link href={"/storybook"}>Audio Narasi</Link>
+            <Link href={"/dictionary"}>Mini Dictionary</Link>
+            <Link href={"/conversation"}>Conversation</Link>
+            <Link href={"/game"}>Game </Link>
           </div>
         </div>
         <hr className="border border-white border-opacity-50"/>
