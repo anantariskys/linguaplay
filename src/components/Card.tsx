@@ -12,7 +12,7 @@ interface Props{
     color : 'bg-list1' |'bg-list2'|"bg-list3"|"bg-list4",
     description:string,
     image:StaticImageData,
-    text?:String,
+    text?:string,
     to:string
     
 }
