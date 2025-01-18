@@ -1,5 +1,4 @@
 'use client'
-import React, { useEffect, useState } from 'react'
 import TextureBG from "@/assets/texture-bg.png";
 import { usePathname } from 'next/navigation';
 import StoryBookContent from './StoryBookContent';
