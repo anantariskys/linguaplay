@@ -1,3 +1,4 @@
+'use client'
 import Decoration from "@/assets/landing-decoration.png";
 import WelcomeIMG from "@/assets/welcome-image.png";
 import FiturIMG from "@/assets/fitur.png";
@@ -9,15 +10,20 @@ import { fitur } from "@/data/fitur";
 import Card from "@/components/Card";
 import { getCardColor } from "@/utils/utils";
 
+
+
+
 export default function Home() {
+
   return (
     <>
+   
       <section
         style={{ backgroundImage: `url(${TextureBG.src})` }}
         className="flex bg-white justify-center items-center flex-col "
       >
         <main className="flex  justify-center relative items-center flex-col gap-3 min-h-screen container">
-          <h1 className="text-4xl lg:text-6xl font-bold">LinguaPlay.</h1>
+          <h1 className="text-4xl lg:text-6xl font-bold">RaraRiri.</h1>
           <h2 className="text-4xl text-center lg:text-6xl font-bold">
             Learn English, Playfully
           </h2>
@@ -57,7 +63,9 @@ export default function Home() {
         <main className="grid lg:grid-cols-4 grid-cols-1 gap-4 py-8">
           {fitur.map((item, index) => (
             
-            <Card to={`${item.url}`}
+            <Card
+       
+            to={`${item.url}`}
             key={index}
               color={getCardColor(index)}
               description={item.description}
