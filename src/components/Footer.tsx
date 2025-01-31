@@ -13,7 +13,7 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex flex-col text-lg gap-1">
-            <h2 className="font-semibold text-xl">LinguaPlay</h2>
+            <h2 className="font-semibold text-xl">RaraRiri</h2>
             <Link href={"/storybook"}>Audio Narasi</Link>
             <Link href={"/dictionary"}>Mini Dictionary</Link>
             <Link href={"/conversation"}>Conversation</Link>
@@ -21,7 +21,7 @@ const Footer = () => {
           </div>
         </div>
         <hr className="border border-white border-opacity-50"/>
-        <p  className="text-center mt-4">© 2025 Lingua Play</p>
+        <p  className="text-center mt-4">© 2025 RaraRiri</p>
       </main>
     </footer>
   );
