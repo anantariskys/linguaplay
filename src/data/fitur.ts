@@ -18,13 +18,13 @@ export const fitur =[
       "image": Fitur2,
       "url": "dictionary"
     },
-    {
-      id:3,
-      "title": "Conversation with Audio",
-      "description": "Berbicara dengan dialog interaktif",
-      "image": Fitur3,
-      "url": "/conversation"
-    },
+    // {
+    //   id:3,
+    //   "title": "Conversation with Audio",
+    //   "description": "Berbicara dengan dialog interaktif",
+    //   "image": Fitur3,
+    //   "url": "/conversation"
+    // },
     {
       id:4,
       "title": "Interactive Game",
