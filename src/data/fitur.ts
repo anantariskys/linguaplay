@@ -1,6 +1,6 @@
 import Fitur1 from '@/assets/fitur1.png'
 import Fitur2 from '@/assets/fitur2.png'
-import Fitur3 from '@/assets/fitur3.png'
+// import Fitur3 from '@/assets/fitur3.png'
 import Fitur4 from '@/assets/fitur4.png'
 
 export const fitur =[
