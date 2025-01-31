@@ -6,7 +6,7 @@ const page = () => {
     <>
       {chapter.map((item, index) => (
         <Card
-          to={`${item.chapter}`}
+          to={`/dictionary/${item.chapter}`}
           color="bg-list2"
           description={item.description}
           image={item.image}
