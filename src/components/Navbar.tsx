@@ -13,7 +13,7 @@ const Navbar = () => {
   const {isOpen} = useModalStore()
 
 
-  const isActive = (path:any) => pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   return (
     <nav className={`${isOpen ? "-translate-y-full" : "-translate-y-0"} duration-500 transition-transform fixed top-0 z-50 bg-white2 shadow-sm left-0 right-0`}>
