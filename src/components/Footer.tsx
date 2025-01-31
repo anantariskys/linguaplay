@@ -16,7 +16,7 @@ const Footer = () => {
             <h2 className="font-semibold text-xl">RaraRiri</h2>
             <Link href={"/storybook"}>Audio Narasi</Link>
             <Link href={"/dictionary"}>Mini Dictionary</Link>
-            <Link href={"/conversation"}>Conversation</Link>
+            {/* <Link href={"/conversation"}>Conversation</Link> */}
             <Link href={"/game"}>Game </Link>
           </div>
         </div>
