@@ -6,7 +6,6 @@ import { FC, ReactNode } from "react";
 
 const layout: FC<{ children: ReactNode }> = ({ children }) => {
   const { isOpen } = useModalStore();
-
   return (
     <>
       {isOpen && <Modal />}
