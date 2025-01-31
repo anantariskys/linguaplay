@@ -63,11 +63,11 @@ const Navbar = () => {
               <p className={isActive('/dictionary') ? "text-primary1" : ""}>Mini Dictionary</p>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href={"/conversation"}>
               <p className={isActive('/conversation') ? "text-primary1" : ""}>Conversation</p>
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link href={"/game"}>
               <p className={isActive('/game') ? "text-primary1" : ""}>Game</p>
