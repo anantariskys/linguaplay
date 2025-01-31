@@ -4,7 +4,7 @@ import Modal from "@/components/Modal";
 import { useModalStore } from "@/store/useModalStore";
 import { FC, ReactNode } from "react";
 
-const layout: FC<{ children: ReactNode }> = ({ children }) => {
+const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   const { isOpen } = useModalStore();
   return (
     <>
