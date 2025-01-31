@@ -24,7 +24,7 @@ const Card: FC<Props> = ({
   text = "text-black",
   to,
 }) => {
-  const { onOpen ,isOpen} = useModalStore();
+  const { onOpen} = useModalStore();
   return (
     <div
       className={`${color} ${text} p-6 rounded-2xl flex flex-col justify-between gap-2`}
