@@ -1,6 +1,6 @@
 "use client";
 import Header from "@/components/Header/Header";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modal/Modal";
 import { useModalStore } from "@/store/useModalStore";
 import { FC, ReactNode } from "react";
 
