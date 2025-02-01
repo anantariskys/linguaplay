@@ -1,9 +1,6 @@
 'use client'
-import Card from "@/components/Card";
 import React from "react";
-import { chapter } from "@/data/chapter";
 import { dictionary } from "@/data/dictionary";
-import Link from "next/link";
 import { useModalStore } from "@/store/useModalStore";
 const page = () => {
   const { onOpen } = useModalStore();
