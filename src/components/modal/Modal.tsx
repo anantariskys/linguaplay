@@ -31,7 +31,7 @@ const Modal = () => {
       onClick={onClose}
       className="fixed h-screen w-screen flex justify-center items-center p-2 bg-black bg-opacity-50 z-50"
     >
-      <div onClick={(e) => e.stopPropagation()} className=" w-full">
+      <div  className=" w-full">
         {content}
       </div>
     </div>
