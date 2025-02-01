@@ -44,7 +44,7 @@ const Card: FC<Props> = ({
         )}
         {id && (
           <div
-            onClick={() => onOpen(id)}
+            onClick={() => onOpen(id,"storybook")}
             className={`bg-white2 ${
               text === "text-white" ? "bg-opacity-30" : "bg-opacity-100"
             } min-w-10 aspect-square flex cursor-pointer items-center justify-center p-2 rounded-full`}
