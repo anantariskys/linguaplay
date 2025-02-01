@@ -2,6 +2,7 @@
 import { dictionary } from "@/data/dictionary";
 import { useModalStore } from "@/store/useModalStore";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 const DictionaryContent = () => {
@@ -63,13 +64,16 @@ const DictionaryContent = () => {
   };
 
   return (
-    <main className="max-w-7xl w-full bg-white2 space-y-2 p-4 rounded-2xl mx-auto xl:max-h-none max-h-96 overflow-y-auto">
+    <main onClick={(e) => e.stopPropagation()} className="max-w-7xl w-full bg-white2 space-y-2 p-4 rounded-2xl mx-auto xl:max-h-[90vh] max-h-96 overflow-y-auto">
       <h2 className="text-2xl font-bold">{filteredContent?.title}</h2>
-      <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-2">
+      <div className="grid md:grid-cols-4 xl:grid-cols-6 gap-2">
         {filteredContent?.item.map((item, index) => (
+            <div key={index}>
+                <Image alt={item.english} src={item.img} className="w-full aspect-square"/>
+
           <div
-            key={index}
-            className="bg-primary1 flex rounded p-2 items-center justify-between text-white2"
+
+            className="bg-primary1 flex rounded-b p-2 items-center justify-between text-white2"
           >
             <div>
               <p>{item.english}</p>
@@ -82,6 +86,8 @@ const DictionaryContent = () => {
               <Icon icon={playingId === index ? "mdi:stop" : "mdi:play"} />
             </button>
           </div>
+          </div>
+
         ))}
       </div>
     </main>
