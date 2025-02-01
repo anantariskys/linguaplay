@@ -2,7 +2,7 @@
 import React from "react";
 import { dictionary } from "@/data/dictionary";
 import { useModalStore } from "@/store/useModalStore";
-const page = () => {
+const Page = () => {
   const { onOpen } = useModalStore();
   return (
     <>
@@ -18,4 +18,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
