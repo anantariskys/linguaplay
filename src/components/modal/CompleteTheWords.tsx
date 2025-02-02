@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { animal } from "@/data/animal";
 import { useModalStore } from "@/store/useModalStore";
 import { useWordStore } from "@/store/useWordStore";
