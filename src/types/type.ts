@@ -19,3 +19,44 @@ export interface Word {
     checkAnswer: () => void;
     resetGame: () => void;
   }
+
+  export interface WordCharacterProps {
+    character: {
+      letter: string;
+      isMissing: boolean;
+      index: number;
+    };
+    onDrop: (
+      index: number,
+      letterId: string,
+      letterValue: string,
+      originalIndex: number
+    ) => void;
+    droppedLetter?: string;
+    isDropped?:boolean
+    onRevert: () => void;
+  }
+  
+
+  export type Question = {
+    word: string;
+    // blankWord: string;
+    missingLetters: string[];
+    missingIndexes: number[];
+    characters: { letter: string; isMissing: boolean; index: number }[];
+  };
+  
+  export interface LetterItem {
+    id: string;
+    letter: string;
+    isUsed: boolean;
+    originalIndex: number;
+  }
+  
+  export interface DraggableLetterProps {
+    id: string;
+    letter: string;
+    isUsed: boolean;
+    originalIndex: number;
+    onRevert: () => void;
+  }
