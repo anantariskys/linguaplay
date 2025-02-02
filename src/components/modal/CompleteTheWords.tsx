@@ -2,33 +2,13 @@
 import { animal } from "@/data/animal";
 import { useModalStore } from "@/store/useModalStore";
 import { useWordStore } from "@/store/useWordStore";
-import { FC, useEffect, useState } from "react";
+import { DraggableLetterProps, LetterItem, Question, WordCharacterProps } from "@/types/type";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { FC, useEffect, useRef, useState } from "react";
 import {  useDrag, useDrop } from "react-dnd";
 
 
-// Types
-type Question = {
-  word: string;
-  // blankWord: string;
-  missingLetters: string[];
-  missingIndexes: number[];
-  characters: { letter: string; isMissing: boolean; index: number }[];
-};
 
-interface LetterItem {
-  id: string;
-  letter: string;
-  isUsed: boolean;
-  originalIndex: number;
-}
-
-interface DraggableLetterProps {
-  id: string;
-  letter: string;
-  isUsed: boolean;
-  originalIndex: number;
-  onRevert: () => void;
-}
 
 const getRandomAnimal = (): string => {
   return animal[Math.floor(Math.random() * animal.length)];
@@ -55,61 +35,21 @@ const createBlankWord = (word: string) => {
   };
 };
 
-const DraggableLetter: FC<DraggableLetterProps> = ({
-  id,
-  letter,
-  isUsed,
-  originalIndex,
-  onRevert,
-}) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: "LETTER",
-    item: { id, letter, originalIndex },
-    collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
-    canDrag: !isUsed, 
-  }));
-
-  return (
-    <div
-    ref={(node) => drag(node)}
-      className={`lg:p-4 p-2 ${
-        isUsed ? "bg-gray-300" : "bg-blue-500"
-      } text-white rounded ${
-        !isUsed ? "cursor-pointer" : "cursor-not-allowed"
-      } m-1 ${isDragging ? "opacity-50" : "opacity-100"} transition-all text-sm lg:text-4xl`}
-      onClick={onRevert}
-    >
-      {letter}
-    </div>
-  );
-};
-
-interface WordCharacterProps {
-  character: {
-    letter: string;
-    isMissing: boolean;
-    index: number;
-  };
-  onDrop: (
-    index: number,
-    letterId: string,
-    letterValue: string,
-    originalIndex: number
-  ) => void;
-  droppedLetter?: string;
-  onRevert: () => void;
-}
-
 const WordCharacter: FC<WordCharacterProps> = ({
   character,
   onDrop,
   droppedLetter,
   onRevert,
 }) => {
+  const ref = useRef<HTMLDivElement | null>(null);
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: "LETTER",
-    drop: (item: { id: string; letter: string; originalIndex: number }) =>
-      onDrop(character.index, item.id, item.letter, item.originalIndex),
+    drop: (item: { id: string; letter: string; originalIndex: number }) => {
+      if (!droppedLetter) {
+        onDrop(character.index, item.id, item.letter, item.originalIndex);
+      }
+    },
+    // Hanya izinkan hover effect jika tidak ada huruf yang sudah di-drop
     canDrop: () => character.isMissing && !droppedLetter,
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -118,7 +58,6 @@ const WordCharacter: FC<WordCharacterProps> = ({
   }));
 
   const handleClick = () => {
-    // Jika sudah ada huruf yang ditempatkan, panggil `onRevert`
     if (droppedLetter) {
       onRevert();
     }
@@ -126,33 +65,67 @@ const WordCharacter: FC<WordCharacterProps> = ({
 
   if (!character.isMissing) {
     return (
-      <div
-        className="lg:p-4 p-2 inline-flex items-center justify-center text-sm lg:text-4xl font-medium"
-        onClick={handleClick} // Tambahkan event click untuk mengembalikan huruf
-      >
+      <div className="lg:p-4 p-2 inline-flex items-center justify-center text-sm lg:text-4xl font-medium">
         {character.letter}
       </div>
     );
   }
 
+  drop(ref);
+
   return (
     <div
-      ref={drop}
-      className={`lg:p-4 p-2 border-2 ${
-        isOver && canDrop ? "border-blue-500 bg-blue-50" : "border-gray-300"
-      } ${!canDrop && droppedLetter ? "bg-gray-100" : "bg-white"} inline-flex items-center justify-center mx-1 rounded transition-colors text-sm lg:text-4xl font-medium`}
-      onClick={handleClick} 
+      ref={ref}
+      className={`lg:p-4 p-2 border-2 
+        ${isOver && canDrop ? "border-blue-500 bg-blue-50" : "border-gray-300"}
+        ${droppedLetter ? "bg-gray-100 cursor-pointer" : "bg-white"} 
+        inline-flex items-center justify-center mx-1 rounded transition-colors text-sm lg:text-4xl font-medium
+        ${!droppedLetter ? "hover:border-blue-300" : ""}`}
+      onClick={handleClick}
     >
       {droppedLetter || "_"}
     </div>
   );
 };
 
+const DraggableLetter: FC<DraggableLetterProps> = ({
+  id,
+  letter,
+  isUsed,
+  originalIndex,
+  onRevert,
+}) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "LETTER",
+    item: { id, letter, originalIndex },
+    collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
+    canDrag: !isUsed,  // Tetap tidak bisa di-drag jika sudah digunakan
+  }));
+
+  drag(ref);
+
+  return (
+    <div
+      ref={ref}
+      className={`lg:p-4 p-2 
+        ${isUsed ? "bg-gray-300" : "bg-blue-500"} 
+        text-white rounded 
+        ${!isUsed ? "cursor-pointer hover:bg-blue-600" : "cursor-not-allowed"} 
+        m-1 ${isDragging ? "opacity-50" : "opacity-100"} 
+        transition-all text-sm lg:text-4xl`}
+      onClick={onRevert}
+    >
+      {letter}
+    </div>
+  );
+};
 const CompleteTheWord: FC = () => {
-  const { onOpen} = useModalStore();
+  const { onOpen,onClose} = useModalStore();
   const { resetGame } = useWordStore();
   const [started, setStarted] = useState(false);
   const [question, setQuestion] = useState<Question | null>(null);
+
   const [droppedLetters, setDroppedLetters] = useState<
     Record<number, { letter: string; originalIndex: number }>
   >({});
@@ -264,6 +237,9 @@ const CompleteTheWord: FC = () => {
       onClick={(e) => e.stopPropagation()}
       className="flex flex-col relative items-center justify-center min-h-screen bg-white2 bg-opacity-40 p-4"
     >
+      <div className="absolute top-8 right-8 p-4 rounded-md text-xl bg-primary1 text-white2">
+        <Icon onClick={()=>onClose()} icon={'material-symbols:cancel-rounded'}  />
+      </div>
    
 
       {!started ? (
