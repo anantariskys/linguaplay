@@ -34,8 +34,8 @@ const getRandomAnimal = (): string => {
 };
 
 const createBlankWord = (word: string) => {
-  let wordArray = word.split("");
-  let blankIndexes = new Set<number>();
+  const wordArray = word.split("");
+  const blankIndexes = new Set<number>();
   while (blankIndexes.size < Math.ceil(word.length / 2)) {
     blankIndexes.add(Math.floor(Math.random() * word.length));
   }
@@ -96,7 +96,6 @@ interface WordCharacterProps {
     originalIndex: number
   ) => void;
   droppedLetter?: string;
-  isDropped: boolean;
   onRevert: () => void;
 }
 
@@ -104,7 +103,6 @@ const WordCharacter: FC<WordCharacterProps> = ({
   character,
   onDrop,
   droppedLetter,
-  isDropped,
   onRevert,
 }) => {
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
@@ -205,7 +203,7 @@ const CompleteTheWord: FC = () => {
   const handleRevert = (letterId: string) => {
     // Find the dropped letter entry we want to remove
     const entryToRemove = Object.entries(droppedLetters).find(
-      ([_, value]) => value.letter === letterId
+      ([, value]) => value.letter === letterId
     );
 
     if (entryToRemove) {
