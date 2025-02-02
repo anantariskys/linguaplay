@@ -9,7 +9,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Notif from "./Notif";
 
 const Modal = () => {
-  const { onClose, type,message,status } = useModalStore();
+  const { onClose, type} = useModalStore();
 
   let content: React.ReactNode = null;
   switch (type) {
