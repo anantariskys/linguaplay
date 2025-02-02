@@ -10,7 +10,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
     <>
       {isOpen && <Modal />}
       <Header />
-      <section className="py-12 container grid lg:grid-cols-4 gap-4 grid-cols-1">
+      <section className="py-12 container  grid lg:grid-cols-4 gap-4 grid-cols-1">
         {children}
       </section>
     </>
