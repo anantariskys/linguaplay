@@ -7,6 +7,8 @@ import CompleteTheWords from "./CompleteTheWords";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Notif from "./Notif";
+import WhichOne from "./WhichOne";
+import LinkTheObject from "./LinkTheObject";
 
 const Modal = () => {
   const { onClose, type} = useModalStore();
@@ -23,10 +25,10 @@ const Modal = () => {
       content = <CompleteTheWords/>; // Add proper content here
       break;
     case "link":
-      content = <div>Game link</div>; // Add proper content here
+      content = <LinkTheObject/>; // Add proper content here
       break;
     case "which":
-      content = <div>Game which</div>; // Add proper content here
+      content = <WhichOne/>; // Add proper content here
       break;
     case "notif":
       content = <Notif/>
