@@ -1,3 +1,4 @@
+import { StaticImageData } from "next/image";
 
 export interface Word {
     question: string;
@@ -60,3 +61,8 @@ export interface Word {
     originalIndex: number;
     onRevert: () => void;
   }
+
+  export type Animal = {
+    name: string;
+    image: StaticImageData;
+  };
