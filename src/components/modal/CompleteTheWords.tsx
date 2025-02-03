@@ -7,7 +7,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import Image, { StaticImageData } from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
 import {  useDrag, useDrop } from "react-dnd";
-
+import { toast } from "react-toastify";
 
 
 
@@ -122,6 +122,8 @@ const DraggableLetter: FC<DraggableLetterProps> = ({
   );
 };
 const CompleteTheWord: FC = () => {
+  const backgroundMusicRef = useRef<HTMLAudioElement | null>(null);
+
   const { onOpen,onClose} = useModalStore();
   const { resetGame } = useWordStore();
   const [started, setStarted] = useState(false);
@@ -134,7 +136,22 @@ const CompleteTheWord: FC = () => {
   const [availableLetters, setAvailableLetters] = useState<LetterItem[]>([]);
 
   useEffect(() => {
+    backgroundMusicRef.current = new Audio("/audio/backsound.mp3");
+    backgroundMusicRef.current.loop = true;
+
+    return () => {
+      // Pastikan audio berhenti saat komponen di-unmount
+      if (backgroundMusicRef.current) {
+        backgroundMusicRef.current.pause();
+        backgroundMusicRef.current.currentTime = 0;
+      }
+    };
+  }, []);
+  useEffect(() => {
     if (started) {
+      // Memainkan musik saat game dimulai
+      backgroundMusicRef.current?.play().catch((error) => console.error("Error playing audio:", error));
+
       const animal = getRandomAnimal();
       const newQuestion = createBlankWord(animal.name);
       setQuestion(newQuestion);
@@ -146,10 +163,17 @@ const CompleteTheWord: FC = () => {
         newQuestion.missingLetters.map((letter, index) => ({
           id: `letter-${index}`,
           letter,
-          isUsed: false, 
+          isUsed: false,
           originalIndex: index,
         }))
       );
+    } else {
+      // Menghentikan musik saat game berhenti
+      backgroundMusicRef.current?.pause();
+      if (backgroundMusicRef.current) {
+        backgroundMusicRef.current.currentTime = 0;
+        
+      }
     }
   }, [started, resetGame]);
 
@@ -213,6 +237,7 @@ const CompleteTheWord: FC = () => {
     );
   
     if (!isAllLettersPlaced) {
+      
       alert('silahkan taruh semua huruf sebelum submit.')
      
       return;
@@ -222,17 +247,36 @@ const CompleteTheWord: FC = () => {
       (letter, index) =>
         droppedLetters[question.missingIndexes[index]]?.letter === letter
     );
-   
 
+    if (isCorrect) {
+      const audio = new Audio("/audio/correct.wav");
+      audio.volume = 0.7;
+      audio.play()
+    }else{
+      const audio = new Audio("/audio/wrong.wav");
+      audio.volume = 0.7;
+      audio.play()
+    }
+    
+    
     const resultMessage = isCorrect ? "Jawaban benar !!!" : `Jawaban salah  !!! susunan yang benar adalah : ${question.word}`;
-
     onOpen(0,"notif",resultMessage,isCorrect ? "correct" : "wrong")
+
 
     setTimeout(() => {
       setStarted(false);
+     
       resetGame();
       setDroppedLetters({});
     }, 1000);
+  };
+  const handleClose = () => {
+    // Pastikan musik berhenti saat game di-close
+    backgroundMusicRef.current?.pause();
+    if (backgroundMusicRef.current) {
+      backgroundMusicRef.current.currentTime = 0;
+    }    
+    onClose();
   };
 
   return (
@@ -240,7 +284,7 @@ const CompleteTheWord: FC = () => {
       onClick={(e) => e.stopPropagation()}
       className="flex flex-col relative items-center justify-center min-h-screen bg-white2 bg-opacity-40 p-4"
     >
-      <div onClick={()=>onClose()} className="absolute cursor-pointer top-2 md:top-8 right-2 md:right-8 p-4 rounded-md text-xl bg-primary1 text-white2">
+      <div onClick={()=>handleClose()} className="absolute cursor-pointer top-2 md:top-8 right-2 md:right-8 p-4 rounded-md text-xl bg-primary1 text-white2">
         <Icon  icon={'material-symbols:cancel-rounded'}  />
       </div>
    
