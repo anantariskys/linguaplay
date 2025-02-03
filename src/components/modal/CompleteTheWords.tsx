@@ -1,17 +1,18 @@
 /* eslint-disable */
-import { animal } from "@/data/animal";
+import { animals } from "@/data/animal";
 import { useModalStore } from "@/store/useModalStore";
 import { useWordStore } from "@/store/useWordStore";
 import { DraggableLetterProps, LetterItem, Question, WordCharacterProps } from "@/types/type";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import Image, { StaticImageData } from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
 import {  useDrag, useDrop } from "react-dnd";
 
 
 
 
-const getRandomAnimal = (): string => {
-  return animal[Math.floor(Math.random() * animal.length)];
+const getRandomAnimal = (): { name: string; image: StaticImageData } => {
+  return animals[Math.floor(Math.random() * animals.length)];
 };
 
 const createBlankWord = (word: string) => {
@@ -65,7 +66,7 @@ const WordCharacter: FC<WordCharacterProps> = ({
 
   if (!character.isMissing) {
     return (
-      <div className="lg:p-4 p-2 inline-flex items-center justify-center text-sm lg:text-4xl font-medium">
+      <div className=" p-2 inline-flex items-center justify-center text-sm lg:text-lg font-medium">
         {character.letter}
       </div>
     );
@@ -76,10 +77,10 @@ const WordCharacter: FC<WordCharacterProps> = ({
   return (
     <div
       ref={ref}
-      className={`lg:p-4 p-2 border-2 
+      className={`p-2 border-2 
         ${isOver && canDrop ? "border-blue-500 bg-blue-50" : "border-gray-300"}
         ${droppedLetter ? "bg-gray-100 cursor-pointer" : "bg-white"} 
-        inline-flex items-center justify-center mx-1 rounded transition-colors text-sm lg:text-4xl font-medium
+        inline-flex items-center justify-center mx-1 rounded transition-colors text-sm lg:text-lg font-medium
         ${!droppedLetter ? "hover:border-blue-300" : ""}`}
       onClick={handleClick}
     >
@@ -108,12 +109,12 @@ const DraggableLetter: FC<DraggableLetterProps> = ({
   return (
     <div
       ref={ref}
-      className={`lg:p-4 p-2 
+      className={` p-2 
         ${isUsed ? "bg-gray-300" : "bg-blue-500"} 
         text-white rounded 
         ${!isUsed ? "cursor-pointer hover:bg-blue-600" : "cursor-not-allowed"} 
         m-1 ${isDragging ? "opacity-50" : "opacity-100"} 
-        transition-all text-sm lg:text-4xl`}
+        transition-all text-sm lg:text-lg`}
       onClick={onRevert}
     >
       {letter}
@@ -125,6 +126,7 @@ const CompleteTheWord: FC = () => {
   const { resetGame } = useWordStore();
   const [started, setStarted] = useState(false);
   const [question, setQuestion] = useState<Question | null>(null);
+  const [animalImage, setAnimalImage] = useState<StaticImageData>();
 
   const [droppedLetters, setDroppedLetters] = useState<
     Record<number, { letter: string; originalIndex: number }>
@@ -133,9 +135,10 @@ const CompleteTheWord: FC = () => {
 
   useEffect(() => {
     if (started) {
-      const word = getRandomAnimal();
-      const newQuestion = createBlankWord(word);
+      const animal = getRandomAnimal();
+      const newQuestion = createBlankWord(animal.name);
       setQuestion(newQuestion);
+      setAnimalImage(animal.image);
       resetGame();
       setDroppedLetters({});
 
@@ -237,8 +240,8 @@ const CompleteTheWord: FC = () => {
       onClick={(e) => e.stopPropagation()}
       className="flex flex-col relative items-center justify-center min-h-screen bg-white2 bg-opacity-40 p-4"
     >
-      <div className="absolute top-8 right-8 p-4 rounded-md text-xl bg-primary1 text-white2">
-        <Icon onClick={()=>onClose()} icon={'material-symbols:cancel-rounded'}  />
+      <div onClick={()=>onClose()} className="absolute cursor-pointer top-2 md:top-8 right-2 md:right-8 p-4 rounded-md text-xl bg-primary1 text-white2">
+        <Icon  icon={'material-symbols:cancel-rounded'}  />
       </div>
    
 
@@ -253,6 +256,18 @@ const CompleteTheWord: FC = () => {
         <div className="bg-white p-6 rounded-lg shadow-lg w-fit text-center">
           <p className="text-lg text-gray-600 mb-2">Guess the animal:</p>
 
+          {animalImage&& ( 
+            <div className="w-80 md:max-w-xs mb-4 aspect-square relative">
+              <div className="size-full bg-gray-300 animate-pulse"></div>
+            <Image
+              src={animalImage}
+              alt="Animal"
+              
+              className="size-full object-cover absolute top-0 left-0"/>
+              </div>
+             )
+            }
+
           <div className="flex justify-center items-center space-x-1 mb-4">
             {question?.characters.map((char, idx) => (
               <WordCharacter
@@ -266,7 +281,7 @@ const CompleteTheWord: FC = () => {
             ))}
           </div>
 
-          <div className="flex justify-center flex-wrap mb-6">
+          <div className="flex justify-center flex-wrap mb-4">
            {availableLetters
           .filter((item) => !item.isUsed) // Filter huruf yang sudah digunakan
           .map((item) => (
