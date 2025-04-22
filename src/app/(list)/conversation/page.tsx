@@ -3,7 +3,7 @@ import { conversation } from '@/data/convertation'
 import { useModalStore } from '@/store/useModalStore';
 import React from 'react'
 
-const page = () => {
+const Page = () => {
   const { onOpen } = useModalStore();
   return (
    <>
@@ -19,4 +19,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
