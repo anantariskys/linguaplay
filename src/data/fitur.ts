@@ -1,6 +1,6 @@
 import Fitur1 from '@/assets/fitur1.png'
 import Fitur2 from '@/assets/fitur2.png'
-// import Fitur3 from '@/assets/fitur3.png'
+import Fitur3 from '@/assets/fitur3.png'
 import Fitur4 from '@/assets/fitur4.png'
 
 export const fitur =[
@@ -18,13 +18,13 @@ export const fitur =[
       "image": Fitur2,
       "url": "dictionary"
     },
-    // {
-    //   id:3,
-    //   "title": "Conversation with Audio",
-    //   "description": "Berbicara dengan dialog interaktif",
-    //   "image": Fitur3,
-    //   "url": "/conversation"
-    // },
+    {
+      id:3,
+      "title": "Conversation with Audio",
+      "description": "Berbicara dengan dialog interaktif",
+      "image": Fitur3,
+      "url": "/conversation"
+    },
     {
       id:4,
       "title": "Interactive Game",

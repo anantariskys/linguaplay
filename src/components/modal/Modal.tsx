@@ -9,6 +9,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Notif from "./Notif";
 import WhichOne from "./WhichOne";
 import LinkTheObject from "./LinkTheObject";
+import ConversationContent from "./ConversationContent";
 
 const Modal = () => {
   const { onClose, type} = useModalStore();
@@ -27,6 +28,9 @@ const Modal = () => {
     case "link":
       content = <LinkTheObject/>; // Add proper content here
       break;
+    case "conversation":
+      content = <ConversationContent/>; // Add proper content here
+      break;
     case "which":
       content = <WhichOne/>; // Add proper content here
       break;
@@ -43,7 +47,7 @@ const Modal = () => {
       onClick={onClose}
       className="fixed h-screen w-screen flex justify-center items-center xl:p-0 p-2 bg-black bg-opacity-50 z-50"
     >
-      <div  className=" w-full">
+      <div  className=" w-full p-4">
       <DndProvider backend={HTML5Backend}>
         {content}
     </DndProvider>
